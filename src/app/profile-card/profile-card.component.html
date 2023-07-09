@@ -1,0 +1,22 @@
+<div class="card-body">
+    <!-- info -->
+    <div class="flex-shrink-0">
+        <!-- <img class="avatar" [src]="profile.avatar" crossorigin="anonymous" width="30px" height="30px"> -->
+    </div>
+    <div class="ms-2">
+        <div class="d-flex">
+            <div class="id">{{profile.id}}</div>
+            <div class="verified" *ngIf="profile.verified"><i class="bi-patch-check-fill"></i>
+            </div>
+        </div>
+        <div class="name">{{profile.name}}</div>
+    </div>
+
+    <!-- button container -->
+    <div class="ms-auto">
+        <button type="button" class="toDelete" (click)="toDelete()"><i class="bi-x"></i></button>
+        <button type="button" class="toBottom" (click)="toBottom()"><i class="bi-arrow-down-short"></i></button>
+        <a class="insta-href" [href]="profile.href" target="_blank" rel="noopener noreferrer"><i
+                class="bi-instagram"></i></a>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+<div class="container" style="max-width: 980px;">
+
+    <nav class="navbar">
+        <div class="container-fluid justify-content-center">
+            <!-- app name -->
+            <a class="app-name navbar-brand fw-bold" href="#">InstaAnalyzer</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- source input fields -->
+        <div class="row mt-2">
+            <!-- followers field -->
+            <div class="col">
+                <div class="shadow-sm">
+                    <div class="form-floating mb-3">
+                        <textarea #followersTextarea class="form-control raw" placeholder="na"
+                            [ngClass]="{'processed': processed}"
+                            (focus)="followersTextarea.select()">{{ModuleConsts.followers_example}}</textarea>
+                        <label>追蹤者</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- following field -->
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <textarea #followingTextarea class="form-control raw" placeholder="na"
+                        [ngClass]="{'processed': processed}"
+                        (focus)="followingTextarea.select()">{{ModuleConsts.following_example}}</textarea>
+                    <label>追蹤中</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- function dashboard -->
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-compare btn-sm me-1" (click)="compare()">
+                    <i class="bi-search"></i> compare
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm me-1" (click)="reset()">
+                    <i class="bi bi-arrow-clockwise"></i> reset
+                </button>
+            </div>
+
+            <div class="col">
+                <div class="d-flex justify-content-around">
+                    <div>
+                        <div class="fw-bold text-center">Followers</div>
+                        <div class="text-center">{{followers.length}}</div>
+                    </div>
+
+                    <div>
+                        <div class="fw-bold text-center">Following</div>
+                        <div class="text-center">{{following.length}}</div>
+                    </div>
+
+                    <div>
+                        <div class="fw-bold text-center">State</div>
+                        <div class="fw-bold text-center" [ngStyle]="stateStyle">{{state}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- result display area -->
+        <div class="row mt-4">
+            <!-- You Don’t Follow Back -->
+            <div class="col">
+                <div class="shadow-sm rounded">
+                    <div class="card-header">
+                        <div><i class="bi-person-fill-down header-icon"></i></div>
+                        <div>
+                            <div class="fw-bold">你沒有追蹤的</div>
+                            <div class="subText">You Don’t Follow Back</div>
+                        </div>
+                    </div>
+                    <div class="list-group list-group-flush" cdkDropList
+                        (cdkDropListDropped)="dropped($event,ModuleConsts.notFollowBack)">
+                        <profile-card *ngFor="let ps of notFollowBack ; index as index" [profile]="ps"
+                            (toBottomClick)="toBottomClick(index,ModuleConsts.notFollowBack)"
+                            (toDeleteClick)="toDeleteClick(index,ModuleConsts.notFollowBack)" cdkDrag />
+                    </div>
+                    <div class="border-top p-1"></div>
+                </div>
+            </div>
+
+            <!-- Who Don’t Follow You Back -->
+            <div class="col">
+                <div class="shadow-sm rounded">
+                    <div class="card-header">
+                        <div><i class="bi-person-fill-up header-icon"></i></div>
+                        <div>
+                            <div class="fw-bold">沒有追蹤你的</div>
+                            <div class="subText">Who Don’t Follow You Back</div>
+                        </div>
+                    </div>
+                    <div class="list-group list-group-flush" cdkDropList
+                        (cdkDropListDropped)="dropped($event,ModuleConsts.notFollowYou)">
+                        <profile-card *ngFor="let ps of notFollowYou ; index as index" [profile]="ps"
+                            (toBottomClick)="toBottomClick(index,ModuleConsts.notFollowYou)"
+                            (toDeleteClick)="toDeleteClick(index,ModuleConsts.notFollowYou)" cdkDrag />
+                    </div>
+                    <div class="border-top p-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
